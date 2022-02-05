@@ -20,7 +20,7 @@ default: .build-container
 	buildah rm ${WORKING_NAME} || true
 	buildah from --name ${WORKING_NAME} debian
 	buildah copy --from ${BUILD_NAME} ${WORKING_NAME} /home/build/.cargo/bin/aquatic /app/
-	buildah config --author "AkhIL <akhilman@gmail.com>" --port 3000 --user nobody --cmd /app/aquatic ${WORKING_NAME}
+	buildah config --author "AkhIL <akhilman@gmail.com>" --port 3000 --user nobody --cmd "/app/aquatic http" ${WORKING_NAME}
 	buildah commit ${WORKING_NAME} ${NAME}
 	touch .build-container
 
