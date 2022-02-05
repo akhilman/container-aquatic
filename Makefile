@@ -16,14 +16,13 @@ default: .build-container
 	buildah run --user build ${BUILD_NAME} /home/build/.cargo/bin/cargo install aquatic
 	touch .build-app
 
-.build-container: .build-app
+.build-container:
 	buildah rm ${WORKING_NAME} || true
 	buildah from --name ${WORKING_NAME} debian
 	buildah copy --from ${BUILD_NAME} ${WORKING_NAME} /home/build/.cargo/bin/aquatic /app/
 	buildah config --author "AkhIL <akhilman@gmail.com>" --port 3000 --user nobody --cmd "/app/aquatic http" ${WORKING_NAME}
 	buildah commit ${WORKING_NAME} ${NAME}
-	touch .build-container
 
 clean:
 	buildah rm ${WORKING_NAME} ${BUILD_NAME}
-	rm .build-container .build-app
+	rm .build-app
