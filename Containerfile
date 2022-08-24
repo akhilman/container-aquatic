@@ -1,5 +1,5 @@
 from docker.io/rust:latest as aquatic-build
-run cargo install --version 0.1.0 aquatic_udp
+run cargo install --version 0.2.0 aquatic_udp
 
 from debian:latest as aquatic-udp
 LABEL org.opencontainers.image.authors="AkhIL <akhilman@gmail.com>"
